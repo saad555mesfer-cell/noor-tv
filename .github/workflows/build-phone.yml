@@ -7,6 +7,7 @@ on:
       - 'noor-app/**'
       - 'launcher-patch/**'
       - 'themes/riyadh/**'
+      - 'tools/prepare-phone-build.py'
   workflow_dispatch:
 
 permissions:
@@ -33,7 +34,9 @@ jobs:
         with:
           packages: platforms;android-34 build-tools;34.0.0
       - name: Apply Noor patch for Riyadh
-        run: python3 launcher-patch/apply.py reference 24.7136 46.6753 4 Riyadh
+        run: |
+          python3 launcher-patch/apply.py reference 24.7136 46.6753 4 Riyadh
+          python3 tools/prepare-phone-build.py reference
       - name: Build launcher and verify
         working-directory: reference/launcher
         run: |
